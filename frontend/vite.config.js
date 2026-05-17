@@ -8,7 +8,7 @@ export default defineConfig({
     historyApiFallback: true,
     proxy: {
       '/api': {
-        target: 'http://localhost:8000',
+        target: 'https://captain-cool.onrender.com',
         changeOrigin: true,
       },
     },
