@@ -1,0 +1,172 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Base ──────────────────────────────────────────────────────────────────── */
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  background: #0a0a0f;
+  color: #e8e8e8;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── Scrollbar ──────────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #0a0a0f; }
+::-webkit-scrollbar-thumb { background: #e31837; border-radius: 2px; }
+
+/* ─── ESPN Ticker ────────────────────────────────────────────────────────────── */
+.ticker-wrap {
+  overflow: hidden;
+  white-space: nowrap;
+  background: #0a0a0f;
+  border-top: 1px solid #1a1a1a;
+  border-bottom: 2px solid #e31837;
+}
+.ticker-track {
+  display: inline-block;
+  animation: ticker-scroll 28s linear infinite;
+}
+@keyframes ticker-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ─── Input fields ───────────────────────────────────────────────────────────── */
+.espn-input {
+  width: 100%;
+  background: #1a1a2e;
+  border: 1px solid #2a2a3e;
+  border-bottom: 2px solid #2a2a3e;
+  border-radius: 4px;
+  padding: 10px 14px;
+  color: #fff;
+  font-size: 13px;
+  font-family: 'Inter', sans-serif;
+  transition: border-color 0.2s, background 0.2s;
+  outline: none;
+}
+.espn-input:focus {
+  border-color: #1a1a2e;
+  border-bottom-color: #e31837;
+  background: #1e1e35;
+}
+.espn-input option { background: #1a1a2e; }
+
+.espn-label {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #666;
+  margin-bottom: 6px;
+}
+
+/* ─── Section header ─────────────────────────────────────────────────────────── */
+.espn-section-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #1a1a1a;
+}
+.espn-section-header::before {
+  content: '';
+  display: block;
+  width: 3px;
+  height: 18px;
+  background: #e31837;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.espn-section-title {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #e31837;
+}
+
+/* ─── Toggle switch ──────────────────────────────────────────────────────────── */
+.espn-toggle-track {
+  width: 40px; height: 20px;
+  border-radius: 10px;
+  transition: background 0.25s;
+  position: relative;
+  flex-shrink: 0;
+}
+.espn-toggle-thumb {
+  position: absolute;
+  top: 2px; left: 2px;
+  width: 16px; height: 16px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+  transition: transform 0.25s;
+}
+
+/* ─── Result cards ───────────────────────────────────────────────────────────── */
+.broadcast-card {
+  opacity: 0;
+  animation: slide-up 0.5s ease forwards;
+  border-left: 3px solid #e31837;
+}
+.broadcast-card:nth-child(1) { animation-delay: 0.05s; }
+.broadcast-card:nth-child(2) { animation-delay: 0.35s; }
+.broadcast-card:nth-child(3) { animation-delay: 0.65s; }
+.broadcast-card:nth-child(4) { animation-delay: 0.95s; }
+.broadcast-card:nth-child(5) { animation-delay: 1.25s; }
+
+.broadcast-card.gold-card  { border-left-color: #f59e0b; }
+.broadcast-card.purple-card { border-left-color: #7c3aed; }
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Radar pulse ────────────────────────────────────────────────────────────── */
+.radar-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1.5px solid #e31837;
+  animation: radar-expand 2s ease-out infinite;
+}
+.radar-ring:nth-child(1) { animation-delay: 0s; }
+.radar-ring:nth-child(2) { animation-delay: 0.6s; }
+.radar-ring:nth-child(3) { animation-delay: 1.2s; }
+
+@keyframes radar-expand {
+  0%   { width: 0; height: 0; opacity: 0.9; top: 50%; left: 50%; transform: translate(-50%,-50%); }
+  100% { width: 120px; height: 120px; opacity: 0; top: 50%; left: 50%; transform: translate(-50%,-50%); }
+}
+
+/* ─── Win probability bar ────────────────────────────────────────────────────── */
+.prob-bar {
+  height: 8px;
+  border-radius: 4px;
+  transition: width 1.4s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* ─── Dot pulsing ────────────────────────────────────────────────────────────── */
+@keyframes dot-pulse {
+  0%, 80%, 100% { opacity: 0.2; }
+  40%           { opacity: 1;   }
+}
+.dot-1 { animation: dot-pulse 1.4s ease-in-out infinite; animation-delay: 0s; }
+.dot-2 { animation: dot-pulse 1.4s ease-in-out infinite; animation-delay: 0.2s; }
+.dot-3 { animation: dot-pulse 1.4s ease-in-out infinite; animation-delay: 0.4s; }
+
+/* ─── Submit button pulse ────────────────────────────────────────────────────── */
+@keyframes btn-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(227,24,55,0.5); }
+  50%       { box-shadow: 0 0 0 10px rgba(227,24,55,0); }
+}
+.btn-analyzing { animation: btn-pulse 1.2s ease infinite; }

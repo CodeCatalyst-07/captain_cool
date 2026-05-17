@@ -1,0 +1,27 @@
+# ---------------------------------------------------------------------------
+# captain-cool — dependency manifest
+# ---------------------------------------------------------------------------
+
+# Google AI / ADK
+google-genai
+google-adk
+
+# API server
+fastapi
+uvicorn[standard]
+python-multipart
+
+# UI
+gradio
+
+# HTTP & scraping
+requests
+beautifulsoup4
+lxml
+
+# Configuration
+python-dotenv
+
+# Testing
+pytest
+pytest-httpx
