@@ -60,8 +60,47 @@ _APP_NAME: str = "captain-cool"
 _USER_ID: str = "orchestrator"
 
 # ---------------------------------------------------------------------------
+# Response cache
+# ---------------------------------------------------------------------------
+
+_DEBATE_CACHE: dict[str, dict[str, Any]] = {}
+"""Module-level in-process cache for debate results.
+
+Keyed by :func:`_make_cache_key`.  Survives for the lifetime of the uvicorn
+process (cleared on server restart).  Saves API quota during demo testing
+when the same match situation is submitted more than once.
+"""
+
+# ---------------------------------------------------------------------------
 # Internal helpers
 # ---------------------------------------------------------------------------
+
+
+def _make_cache_key(match_state: dict[str, Any]) -> str:
+    """Build a deterministic string key from the fields that uniquely identify
+    a match situation for caching purposes.
+
+    Only the four cheapest-to-read fields are used as the key:
+    ``innings``, ``over``, ``score`` (normalised), and both team names.
+    Venue, bowlers, and player names are intentionally excluded so that minor
+    form variations in the same situation still hit the cache.
+
+    Parameters
+    ----------
+    match_state:
+        Raw match_state dict passed to :func:`run_debate`.
+
+    Returns
+    -------
+    str
+        A ``|``-separated string suitable as a dict key.
+    """
+    innings   = str(match_state.get("innings", "")).strip()
+    over      = str(match_state.get("overs", match_state.get("over", ""))).strip()
+    score     = str(match_state.get("score", match_state.get("score_raw", ""))).replace(" ", "")
+    bat_team  = str(match_state.get("batting_team", "")).strip().upper()
+    bowl_team = str(match_state.get("bowling_team", "")).strip().upper()
+    return f"{innings}|{over}|{score}|{bat_team}|{bowl_team}"
 
 
 def _extract_win_prob_inputs(match_state: dict[str, Any]) -> dict[str, Any]:
@@ -182,6 +221,15 @@ async def run_debate(match_state: dict[str, Any]) -> dict[str, Any]:
           using the (potentially revised) dew_risk and batting_depth_rating
           extracted from the stats_summary when available
     """
+    # ------------------------------------------------------------------
+    # Cache lookup — avoid burning API quota for repeated demo inputs
+    # ------------------------------------------------------------------
+    cache_key: str = _make_cache_key(match_state)
+    if cache_key in _DEBATE_CACHE:
+        logger.info("Cache HIT for key=%r — returning cached result", cache_key)
+        return _DEBATE_CACHE[cache_key]
+    logger.info("Cache MISS for key=%r — running full debate", cache_key)
+
     # ------------------------------------------------------------------
     # Step 0 — Win probability snapshot BEFORE the debate
     # ------------------------------------------------------------------
@@ -353,9 +401,9 @@ async def run_debate(match_state: dict[str, Any]) -> dict[str, Any]:
     logger.info("Win probability after debate: %s", win_prob_after)
 
     # ------------------------------------------------------------------
-    # Assemble and return the structured result
+    # Assemble the structured result, cache it, then return
     # ------------------------------------------------------------------
-    return {
+    result: dict[str, Any] = {
         "stats_summary": stats_summary,
         "initial_proposal": initial_proposal,
         "devils_challenge": devils_challenge,
@@ -364,6 +412,9 @@ async def run_debate(match_state: dict[str, Any]) -> dict[str, Any]:
         "win_probability_before": win_prob_before,
         "win_probability_after": win_prob_after,
     }
+    _DEBATE_CACHE[cache_key] = result
+    logger.info("Cached debate result under key=%r (cache size now %d)", cache_key, len(_DEBATE_CACHE))
+    return result
 
 
 # ---------------------------------------------------------------------------

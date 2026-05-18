@@ -28,7 +28,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field
 
-from captain_cool.orchestrator import run_debate
+from captain_cool.orchestrator import run_debate, _DEBATE_CACHE
 from captain_cool.config.settings import GEMINI_API_KEY, GEMINI_MODEL
 
 # ---------------------------------------------------------------------------
@@ -215,6 +215,28 @@ def _build_match_state(req: StrategyRequest) -> dict[str, Any]:
 async def health() -> dict[str, str]:
     """Returns ``{"status": "ok"}`` when the server is running."""
     return {"status": "ok"}
+
+
+@app.get("/api/cache", summary="Inspect response cache")
+async def cache_inspect() -> JSONResponse:
+    """Return all cached debate keys and the total count.
+    Useful for verifying cache hits during demo testing.
+    """
+    return JSONResponse({
+        "cached_entries": len(_DEBATE_CACHE),
+        "keys": list(_DEBATE_CACHE.keys()),
+    })
+
+
+@app.delete("/api/cache", summary="Clear response cache")
+async def cache_clear() -> dict[str, str]:
+    """Wipe the in-process debate cache so the next request calls Gemini again.
+    Call this when you want a fresh result for a match situation you already tested.
+    """
+    count = len(_DEBATE_CACHE)
+    _DEBATE_CACHE.clear()
+    logger.info("Cache cleared (%d entries removed)", count)
+    return {"status": "ok", "cleared": str(count)}
 
 
 @app.get("/api/test", summary="Gemini API smoke test (no ADK)")
