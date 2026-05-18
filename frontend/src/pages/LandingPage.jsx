@@ -8,7 +8,7 @@ const AGENTS = [
   { icon: '🎙️', name: 'COMMENTATOR',     role: 'Broadcast Narrator', desc: 'Narrates the final call in the voice of Harsha and Shastri.', round: 5, color: '#7c3aed' },
 ]
 
-const TICKER = 'POWERED BY GOOGLE GEMINI 2.5 FLASH  •  AGENT DEVELOPMENT KIT  •  REAL-TIME IPL STRATEGY  •  '
+const TICKER = 'POWERED BY GOOGLE GEMINI 2.0 FLASH  •  AGENT DEVELOPMENT KIT  •  REAL-TIME IPL STRATEGY  •  '
 
 export default function LandingPage() {
   const navigate = useNavigate()
@@ -52,7 +52,7 @@ export default function LandingPage() {
           </div>
 
           <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap', marginTop: 56 }}>
-            {['4 AI AGENTS', 'REAL-TIME DEBATE', 'GEMINI 2.5 FLASH', 'ADK POWERED'].map((label) => (
+            {['4 AI AGENTS', 'REAL-TIME DEBATE', 'GEMINI 2.0 FLASH', 'ADK POWERED'].map((label) => (
               <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 8, background: '#111', border: '1px solid #1a1a1a', borderRadius: 4, padding: '8px 16px' }}>
                 <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#e31837', display: 'inline-block' }} />
                 <span style={{ fontSize: 11, fontWeight: 800, color: '#fff', letterSpacing: '0.08em' }}>{label}</span>

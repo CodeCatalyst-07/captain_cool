@@ -257,7 +257,7 @@ captain-cool/
 
 | Layer | Technology |
 |---|---|
-| LLM | Google Gemini 2.5 Flash |
+| LLM | Google Gemini 2.0 Flash |
 | Agent framework | Google ADK (`google-adk`) |
 | Backend | FastAPI + Uvicorn |
 | Frontend | React 18 + Vite 5 + Tailwind CSS 3 |

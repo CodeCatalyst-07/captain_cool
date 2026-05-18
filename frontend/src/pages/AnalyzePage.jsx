@@ -23,7 +23,7 @@ const INITIAL_FORM = {
   cricbuzz_url: '',
 }
 
-const TICKER_TEXT = 'MULTI-AGENT AI SYSTEM  •  GOOGLE GEMINI 2.5 FLASH  •  REAL-TIME IPL STRATEGY  •  ADK POWERED  •  '
+const TICKER_TEXT = 'MULTI-AGENT AI SYSTEM  •  GOOGLE GEMINI 2.0 FLASH  •  REAL-TIME IPL STRATEGY  •  ADK POWERED  •  '
 
 export default function AnalyzePage() {
   const [form, setForm] = useState(INITIAL_FORM)
@@ -160,7 +160,7 @@ export default function AnalyzePage() {
 
       <footer style={{ borderTop: '1px solid #1a1a1a', padding: '16px 24px', textAlign: 'center' }}>
         <span style={{ fontSize: 11, color: '#333', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
-          Captain Cool · Google Gemini 2.5 Flash · ADK Multi-Agent System
+          Captain Cool · Google Gemini 2.0 Flash · ADK Multi-Agent System
         </span>
       </footer>
       <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>

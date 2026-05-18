@@ -23,7 +23,7 @@ export default function EspnNavbar({ right }) {
         <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
           {right ?? (
             <span style={{ fontSize: 11, color: '#555', fontWeight: 500, letterSpacing: '0.04em' }}>
-              Powered by Gemini 2.5
+              Powered by Gemini 2.0
             </span>
           )}
         </div>

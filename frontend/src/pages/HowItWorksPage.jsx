@@ -12,7 +12,7 @@ const STEPS = [
 ]
 
 const TECH = [
-  { icon: '✨', name: 'Google Gemini 2.5 Flash', desc: 'State-of-the-art multimodal LLM powering all four agents with real-time reasoning and tool use.', badge: 'GOOGLE OFFICIAL', badgeColor: '#3b82f6' },
+  { icon: '✨', name: 'Google Gemini 2.0 Flash', desc: 'State-of-the-art multimodal LLM powering all four agents with real-time reasoning and tool use.', badge: 'GOOGLE OFFICIAL', badgeColor: '#3b82f6' },
   { icon: '🤖', name: 'Agent Development Kit (ADK)', desc: 'Google\'s open-source framework for building multi-agent systems with session management and async runners.', badge: 'GOOGLE OFFICIAL', badgeColor: '#22c55e' },
   { icon: '⚡', name: 'FastAPI + React', desc: 'High-performance async Python backend with a Vite-powered React frontend for a real-time broadcast experience.', badge: 'OPEN SOURCE', badgeColor: '#f59e0b' },
 ]

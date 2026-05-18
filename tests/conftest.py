@@ -12,7 +12,7 @@ _s = ModuleType("captain_cool.config.settings")
 _s.GEMINI_API_KEY = "test-gemini-key"
 _s.CRICKETDATA_API_KEY = "test-cricket-key"
 _s.OPENWEATHERMAP_API_KEY = "test-owm-key"
-_s.GEMINI_MODEL = "gemini-2.5-flash"
+_s.GEMINI_MODEL = "gemini-2.0-flash"
 _s.CRICKETDATA_BASE_URL = "https://api.cricketdata.org/api/v1"
 _s.OWM_BASE_URL = "https://api.openweathermap.org/data/2.5/weather"
 
