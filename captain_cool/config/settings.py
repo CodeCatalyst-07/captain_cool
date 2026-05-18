@@ -93,7 +93,7 @@ OPENWEATHERMAP_API_KEY: str = _require("OPENWEATHERMAP_API_KEY")
 # Model & endpoint constants
 # ---------------------------------------------------------------------------
 
-GEMINI_MODEL: str = "gemini-2.0-flash"
+GEMINI_MODEL: str = "gemini-2.5-flash"
 """Default Gemini model used by all captain-cool agents."""
 
 CRICKETDATA_BASE_URL: str = "https://api.cricketdata.org/api/v1"
